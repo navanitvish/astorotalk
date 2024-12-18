@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Home } from "lucide-react";
 import FAQ from "./FAQ/LiveFAQ";
 
@@ -144,10 +144,10 @@ export const LiveAsro = () => {
   return (
     <div>
       <nav className="bg-rose-500 text-white p-3 sm:p-4">
-        <div className="container mx-auto flex items-center gap-2">
+        <Link to="/" className="container mx-auto flex items-center gap-2">
           <Home className="w-4 h-4 sm:w-5 sm:h-5" />
           <span className="font-medium text-sm sm:text-base">Live</span>
-        </div>
+        </Link>
       </nav>
 
       <div className="bg-rose-50 py-6 sm:py-8 p-4 sm:p-6">

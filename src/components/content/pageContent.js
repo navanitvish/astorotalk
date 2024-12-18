@@ -1,12 +1,9 @@
 // src/data/contentData.js
-
-
 export const contentData = {
   psychicReading: {
     id: "psychicReading",
     title: {
       main: "Psychic Reading",
-      highlight: "",
     },
     description:
       "Gain clarity about your life's path and find solutions to the uncertainties that surround you. Consult with top Psychic Readers to uncover the mysteries of your life.",

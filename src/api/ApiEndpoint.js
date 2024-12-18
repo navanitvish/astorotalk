@@ -16,4 +16,6 @@ export const endpoints = {
   getPanchang: "/api/free-services/panchang", // Add Panchang endpoint
   addEnquiry: "/api/enquiry/add", // New POST endpoint
   postGemstone:"/api/astro-services/gemstone-query",
+  plane:"/api/plans/get-all-plans",
+  notifications:"/api/notifications/get-all-notifications"
 };

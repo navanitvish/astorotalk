@@ -1,10 +1,9 @@
-
 import { useState } from "react";
-import { useQuery,useMutation } from "@tanstack/react-query";
-import { fetchastrologers,addEnquiry } from "../api/apiCalls";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { fetchastrologers, addEnquiry } from "../api/apiCalls";
 import { Star, MessageSquare, X, Home } from "lucide-react";
-import { Link } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast"; 
+import { Link,useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 // Custom Modal Component
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -23,7 +22,8 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 // Call Modal Component
-const CallIntakeForm = ({ isOpen, onClose, }) => {
+const CallIntakeForm = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -34,9 +34,8 @@ const CallIntakeForm = ({ isOpen, onClose, }) => {
     maritalStatus: "",
     reason: "",
     mobile: "",
-    type: "chat",
+    type: "call",
   });
-
 
   console.log("formData", formData);
 
@@ -48,27 +47,35 @@ const CallIntakeForm = ({ isOpen, onClose, }) => {
       toast.success("Enquiry submitted successfully!", { duration: 3000 });
       console.log("Enquiry added successfully:", data);
       onClose();
+      navigate("/AstrologerChat");
     },
     onError: (error) => {
-      toast.error(error.message || "There was an error submitting the enquiry. Please try again.", {
-        duration: 4000,
-      });
+      toast.error(
+        error.message ||
+          "There was an error submitting the enquiry. Please try again.",
+        {
+          duration: 4000,
+        }
+      );
       console.error("Error submitting enquiry:", error);
     },
   });
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     // Required field validation
     if (!formData.fname.trim()) newErrors.fname = "First name is required";
     if (!formData.lname.trim()) newErrors.lname = "Last name is required";
     if (!formData.gender) newErrors.gender = "Gender is required";
     if (!formData.dob) newErrors.dob = "Date of birth is required";
-    if (!formData.birthPlace.trim()) newErrors.birthPlace = "Place of birth is required";
-    if (!formData.maritalStatus) newErrors.maritalStatus = "Marital status is required";
+    if (!formData.birthPlace.trim())
+      newErrors.birthPlace = "Place of birth is required";
+    if (!formData.maritalStatus)
+      newErrors.maritalStatus = "Marital status is required";
     if (!formData.mobile.trim()) newErrors.mobile = "Mobile number is required";
-    if (!formData.reason.trim()) newErrors.reason = "Topic of concern is required";
+    if (!formData.reason.trim())
+      newErrors.reason = "Topic of concern is required";
 
     // Mobile number validation
     if (formData.mobile && !/^\d{10}$/.test(formData.mobile.trim())) {
@@ -81,11 +88,13 @@ const CallIntakeForm = ({ isOpen, onClose, }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       mutation.mutate(formData);
     } else {
-      toast.error("Please fill in all required fields correctly.", { duration: 3000 });
+      toast.error("Please fill in all required fields correctly.", {
+        duration: 3000,
+      });
       const firstError = document.querySelector(".error-field");
       if (firstError) {
         firstError.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -100,14 +109,21 @@ const CallIntakeForm = ({ isOpen, onClose, }) => {
     }
   };
 
-  const InputField = ({ label, name, type = "text", required = false, options, value }) => {
+  const InputField = ({
+    label,
+    name,
+    type = "text",
+    required = false,
+    options,
+    value,
+  }) => {
     const hasError = errors[name];
     const inputClasses = `w-full p-2 border rounded ${
-      hasError ? 'border-red-500 bg-red-50' : 'border-gray-300'
+      hasError ? "border-red-500 bg-red-50" : "border-gray-300"
     } focus:outline-none focus:ring-2 focus:ring-yellow-400`;
 
     return (
-      <div className={`${hasError ? 'error-field' : ''}`}>
+      <div className={`${hasError ? "error-field" : ""}`}>
         <label className="block text-sm font-medium mb-1">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
@@ -141,7 +157,7 @@ const CallIntakeForm = ({ isOpen, onClose, }) => {
   const genderOptions = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
-    { value: "Other", label: "Other" }
+    { value: "Other", label: "Other" },
   ];
 
   const maritalStatusOptions = [
@@ -149,7 +165,7 @@ const CallIntakeForm = ({ isOpen, onClose, }) => {
     { value: "Married", label: "Married" },
     { value: "Divorced", label: "Divorced" },
     { value: "Widowed", label: "Widowed" },
-    { value: "Separated", label: "Separated" }
+    { value: "Separated", label: "Separated" },
   ];
 
   return (
@@ -159,8 +175,11 @@ const CallIntakeForm = ({ isOpen, onClose, }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <div className="p-6 max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">Call Intake Form</h2>
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <h2 className="text-xl font-bold">chat Intake Form</h2>
+            <button
+              onClick={onClose}
+              className="text-gray-500 hover:text-gray-700"
+            >
               <X size={24} />
             </button>
           </div>
@@ -238,9 +257,11 @@ const CallIntakeForm = ({ isOpen, onClose, }) => {
                 <input
                   type="tel"
                   value={formData.mobile}
-                  onChange={(e) => handleInputChange('mobile', e.target.value)}
+                  onChange={(e) => handleInputChange("mobile", e.target.value)}
                   className={`flex-1 p-2 border rounded-r ${
-                    errors.mobile ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    errors.mobile
+                      ? "border-red-500 bg-red-50"
+                      : "border-gray-300"
                   }`}
                 />
               </div>
@@ -265,9 +286,7 @@ const CallIntakeForm = ({ isOpen, onClose, }) => {
                   : "bg-yellow-400 hover:bg-yellow-500"
               }`}
             >
-              {mutation.isLoading 
-                ? "Submitting..." 
-                : `Start Call with `}
+              {mutation.isLoading ? "Submitting..." : `Start Chat with `}
             </button>
           </form>
         </div>
@@ -453,17 +472,20 @@ const AstrologerListing = () => {
     ? sortAstrologers(
         astrologerData.data.filter((astrologer) => {
           const matchesSearch =
-            astrologer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            astrologer.specializations.some((spec) =>
-              spec.toLowerCase().includes(searchTerm.toLowerCase())
-            ) ||
-            astrologer.language.some((lang) =>
-              lang.toLowerCase().includes(searchTerm.toLowerCase())
-            );
+            astrologer.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (astrologer.specializations &&
+              astrologer.specializations.some((spec) =>
+                spec.toLowerCase().includes(searchTerm.toLowerCase())
+              )) ||
+            (astrologer.language &&
+              astrologer.language.some((lang) =>
+                lang.toLowerCase().includes(searchTerm.toLowerCase())
+              ));
 
           const matchesSpecialization =
             specializationFilter === "All" ||
-            astrologer.specializations.includes(specializationFilter);
+            (astrologer.specializations &&
+              astrologer.specializations.includes(specializationFilter));
 
           return matchesSearch && matchesSpecialization;
         })
@@ -481,21 +503,25 @@ const AstrologerListing = () => {
         <div className="container mx-auto flex items-center gap-2">
           <span>
             {" "}
-            <Link to="/"><Home className="w-5 h-5" /></Link> 
+            <Link to="/">
+              <Home className="w-5 h-5" />
+            </Link>
           </span>
-          
+
           <span>
             <span className="font-medium">Chat Astrologers</span>
           </span>
         </div>
       </nav>
-      <div className="bg-yellow-400 p-6 mb-8">
-        <div className="flex items-center justify-between m-8">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">
+      <div className="bg-yellow-400 p-6 mb-8 ">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-4 max-w-6xl mx-auto ">
+          <div className="text-center lg:text-left">
+            <h1 className="text-2xl lg:text-3xl font-bold mb-2">
               Need guidance for your life problems?
             </h1>
-            <h2 className="text-2xl">Chat to the best Astrologers in India</h2>
+            <h2 className="text-xl lg:text-2xl">
+              Talk to the best Astrologers in India
+            </h2>
             <div className="bg-white text-black px-4 py-2 rounded-full inline-block mt-4">
               First Session FREE
             </div>
@@ -503,24 +529,23 @@ const AstrologerListing = () => {
           <img
             src="https://cdn.anytimeastro.com/dashaspeaks/psychics/13ecd392-f1e7-4047-98ce-76600fe99498.png"
             alt="Astrologer"
-            className="w-48 h-48 object-cover rounded-full"
+            className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 object-cover rounded-full"
           />
         </div>
       </div>
-
       <div className="max-w-6xl mx-auto p-4">
-        <div className="flex gap-4 mb-4">
+        <div className="flex flex-col md:flex-row md:gap-4 gap-2 mb-4">
           <input
             type="text"
             placeholder="Search astrologers..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="border border-gray-300 p-2 rounded-md w-full"
+            className="border border-gray-300 p-2 rounded-md w-full md:w-auto flex-1"
           />
           <select
             value={specializationFilter}
             onChange={(e) => setSpecializationFilter(e.target.value)}
-            className="border border-gray-300 p-2 rounded-md"
+            className="border border-gray-300 p-2 rounded-md w-full md:w-auto"
           >
             {specializations.map((spec) => (
               <option key={spec} value={spec}>
@@ -531,7 +556,7 @@ const AstrologerListing = () => {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="border border-gray-300 p-2 rounded-md"
+            className="border border-gray-300 p-2 rounded-md w-full md:w-auto"
           >
             {sortOptions.map((option) => (
               <option key={option} value={option}>
@@ -541,7 +566,7 @@ const AstrologerListing = () => {
           </select>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {filteredAstrologers.map((astrologer) => (
             <AstrologerCard key={astrologer._id} astrologer={astrologer} />
           ))}

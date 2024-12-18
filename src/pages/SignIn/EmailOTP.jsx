@@ -33,15 +33,18 @@ const EmailOTP = () => {
   
   const { mutateAsync: verifyUserOTP, isLoading: isVerifyingOTP } = useMutation({
     mutationFn: verifyOTP,
-    onSuccess: () => {
-      dispatch(login({ email }));
-      toast.success('OTP verified! Logging in...');
-      navigate('/');
+    onSuccess: (data) => {
+      const { token } = data; // Extract token from the response
+      localStorage.setItem("token", token); // Save token to localStorage
+      dispatch(login({ email, token })); // Update Redux state with user and token
+      toast.success("OTP verified! Logging in...");
+      navigate("/"); // Redirect to the home page
     },
     onError: (error) => {
-      toast.error(error?.message || 'Invalid OTP. Please try again.');
+      toast.error(error?.message || "Invalid OTP. Please try again.");
     },
   });
+  
 
   // Handle resend OTP timer
   useEffect(() => {

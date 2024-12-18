@@ -51,7 +51,7 @@ const CustomerStories = () => {
   }
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -78,7 +78,7 @@ const CustomerStories = () => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           arrows: false,
           dots: false,
@@ -109,7 +109,7 @@ const CustomerStories = () => {
                 <div className="bg-white border border-red-500 rounded-lg shadow-lg p-4 md:p-8 h-full">
                   <div className="flex flex-col items-center">
                     <img
-                      src={astrologer.image || "https://cdn.anytimeastro.com/dashaspeaks/expert/thumb/628289f4-bd17-4d80-b2d6-b3586fcb824a.png"}
+                      src={astrologer.image}
                       alt={astrologer.name}
                       className="w-16 h-16 md:w-20 md:h-20 rounded-full mb-4 object-cover"
                     />

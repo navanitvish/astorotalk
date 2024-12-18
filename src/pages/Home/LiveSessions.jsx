@@ -68,31 +68,31 @@ const LiveSessions = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["blogs", { limit: 10, page: 1 }],
     queryFn: () => fetchastrologers({ limit: 10, page: 1 }),
   });
 
-  if (isLoading)
-    return (
-      <div className="text-center p-4 md:p-8">
-        <div
-          className="inline-block w-12 h-12 md:w-16 md:h-16 
-        border-4 border-t-4 border-gray-200 border-t-blue-500 
-        rounded-full animate-spin"
-        ></div>
-        <p className="mt-2 md:mt-4 text-sm md:text-base">
-          Loading top-rated astrologers...
-        </p>
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div className="text-center p-4 md:p-8">
+  //       <div
+  //         className="inline-block w-12 h-12 md:w-16 md:h-16 
+  //       border-4 border-t-4 border-gray-200 border-t-blue-500 
+  //       rounded-full animate-spin"
+  //       ></div>
+  //       <p className="mt-2 md:mt-4 text-sm md:text-base">
+  //         Loading top-rated astrologers...
+  //       </p>
+  //     </div>
+  //   );
 
-  if (error)
-    return (
-      <p className="text-center p-4 text-sm md:text-base text-red-500">
-        Error: {error.message}
-      </p>
-    );
+  // if (error)
+  //   return (
+  //     <p className="text-center p-4 text-sm md:text-base text-red-500">
+  //       Error: {error.message}
+  //     </p>
+  //   );
 
   const settings = {
     dots: false,
@@ -108,15 +108,15 @@ const LiveSessions = () => {
       {
         breakpoint: 1280,
         settings: {
-          slidesToShow: 1,
-          dots: true,
+          slidesToShow: 3,
+          dots: false,
         },
       },
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          dots: true,
+          dots: false,
           arrows: true,
         },
       },
@@ -124,7 +124,7 @@ const LiveSessions = () => {
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
-          dots: true,
+          dots: false,
           arrows: false,
           centerMode: true,
           centerPadding: "24px",

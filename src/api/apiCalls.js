@@ -50,9 +50,16 @@ export const fetchTopAstrologers = async () => {
 
 // Send sign-in email OTP request
 export const requestEmailOTP = async ({ email }) => {
+  // Retrieve the FCM token from localStorage
+  const fcmToken = localStorage.getItem("FCM Token");  // Use the correct key
+
+  console.log("FCM Token:", fcmToken);
+
   const response = await axiosInstance.post(endpoints.signIn, {
-    email
+    email,
+    fcm: fcmToken || "", // Use a fallback if FCM token is not available
   });
+
   return response.data;
 };
 
@@ -126,5 +133,26 @@ export const postGemstone = async (postGemstoneuery) => {
     // Log the error and throw it for handling in the mutation's onError callback
     console.error("Error adding postGemstoneuery:", error);
     throw new Error("There was an error submitting the postGemstoneuery. Please try again.");
+  }
+};
+
+export const getPlans = async () => {
+  try {
+    const response = await axiosInstance.get(endpoints.plane); // Ensure `plane` is correctly defined in `endpoints`
+    return response.data; // Extract the relevant data from the response
+  } catch (error) {
+    console.error("Error fetching plans:", error.message || error);
+    throw new Error("Failed to fetch plans. Please try again later.");
+  }
+};
+
+///api/notifications/get-all-notifications
+export const getNotifications = async () => {
+  try {
+    const response = await axiosInstance.get(endpoints.notifications); // Ensure `plane` is correctly defined in `endpoints`
+    return response.data; // Extract the relevant data from the response
+  } catch (error) {
+    console.error("Error fetching plans:", error.message || error);
+    throw new Error("Failed to fetch plans. Please try again later.");
   }
 };

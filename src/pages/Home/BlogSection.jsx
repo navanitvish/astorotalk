@@ -89,7 +89,7 @@ const BlogSection = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          dots: true,
+          dots: false,
         },
       },
       {
@@ -97,7 +97,7 @@ const BlogSection = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          dots: true,
+          dots: false,
           centerMode: true,
           centerPadding: "40px",
         },

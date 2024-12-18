@@ -101,6 +101,7 @@ const AstroServices = () => {
             snap-x
             snap-mandatory
             scroll-smooth
+            no-scrollbar
           "
         >
           {services.map((service) => (

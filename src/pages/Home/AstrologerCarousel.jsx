@@ -35,23 +35,22 @@ const AstrologerCarousel3D = () => {
   const language = useSelector((state) => state.language.language);
   const t = translations[language];
 
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["fetchTopRatedAstrologers"],
     queryFn: fetchTopRatedAstrologers,
   });
+  // if (isLoading) return (
+  //   <div className="flex items-center justify-center p-4 md:p-8">
+  //     <div className="inline-block w-12 h-12 md:w-16 md:h-16 border-4 border-t-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
+  //     <p className="ml-4 text-sm md:text-base">{t.loading}</p>
+  //   </div>
+  // );
 
-  if (isLoading) return (
-    <div className="flex items-center justify-center p-4 md:p-8">
-      <div className="inline-block w-12 h-12 md:w-16 md:h-16 border-4 border-t-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
-      <p className="ml-4 text-sm md:text-base">{t.loading}</p>
-    </div>
-  );
-
-  if (error) return (
-    <div className="p-4 text-center text-red-500">
-      <p className="text-sm md:text-base">Error: {error.message}</p>
-    </div>
-  );
+  // if (error) return (
+  //   <div className="p-4 text-center text-red-500">
+  //     <p className="text-sm md:text-base">Error: {error.message}</p>
+  //   </div>
+  // );
 
   const settings = {
     dots: false,
@@ -77,7 +76,7 @@ const AstrologerCarousel3D = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           centerMode: true,
           centerPadding: "40px",
@@ -86,11 +85,11 @@ const AstrologerCarousel3D = () => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           centerMode: true,
           centerPadding: "30px",
-          dots: true,
+          dots: false,
           arrows: true,
         }
       },
@@ -101,7 +100,7 @@ const AstrologerCarousel3D = () => {
           slidesToScroll: 1,
           centerMode: true,
           centerPadding: "20px",
-          dots: true,
+          dots: false,
           arrows: false,
         }
       }
@@ -141,20 +140,18 @@ const AstrologerCarousel3D = () => {
                 >
                   <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-2 md:mb-4 rounded-full bg-gray-200 overflow-hidden">
                     <img
-                      src={astrologer.image || "https://cdn.anytimeastro.com/dashaspeaks/expert/thumb/628289f4-bd17-4d80-b2d6-b3586fcb824a.png"}
+                      src={astrologer.image}
                       alt={astrologer.name}
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
                   <h3 className="font-medium text-base md:text-lg mb-1 md:mb-2">{astrologer.name}</h3>
-                  <p className="text-md md:text-xl text-gray-700 mb-2">
-                    {astrologer.bio.length > 60
-                      ? `${astrologer.bio.slice(0, 60)}...`
-                      : astrologer.bio}
+                  <p className="text-sm md:text-base text-gray-700 text-center line-clamp-3">
+                  {astrologer.bio}
                   </p>
                   <div className="text-xs md:text-sm">
-                    {t.reviews}: <span className="text-pink-500">{totalReviews}</span>
+                    {/* {t.reviews}: <span className="text-pink-500">{totalReviews}</span> */}
                   </div>
                   <div className="flex justify-center mt-4 md:mt-2 text-yellow-400 text-sm md:text-base">
                     {"★".repeat(Math.round(averageRating))}

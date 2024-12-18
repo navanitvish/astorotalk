@@ -310,7 +310,7 @@ const BlogLayout = () => {
             {/* Main content area */}
             <div className="bg-white rounded-lg shadow p-4">
               <h2 className="text-xl font-semibold mb-4 bg-gradient-to-r from-rose-400 to-red-500 w-full p-4">
-                Nakshatra
+              Career & Job
               </h2>
               {data?.data.map((post) => (
                 <div
@@ -487,7 +487,7 @@ const BlogLayout = () => {
               ))}
             </div>
 
-            <div className="bg-white rounded-lg shadow p-4">
+            {/* <div className="bg-white rounded-lg shadow p-4">
               <h2 className="text-xl font-semibold mb-4 bg-gradient-to-r from-rose-400 to-red-500 w-full p-4">
                 careers
               </h2>
@@ -542,9 +542,9 @@ const BlogLayout = () => {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
 
-            <div className="bg-white rounded-lg shadow p-4">
+            {/* <div className="bg-white rounded-lg shadow p-4">
               <h2 className="text-xl font-semibold mb-4 bg-gradient-to-r from-rose-400 to-red-500 w-full p-4">
                 astrologer
               </h2>
@@ -599,7 +599,7 @@ const BlogLayout = () => {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
           <div>
             <Sidebar />

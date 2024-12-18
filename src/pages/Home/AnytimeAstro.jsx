@@ -51,7 +51,7 @@ const EnhancedAstrologyLanding = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden min-h-screen">
+    <div className="bg-gradient-to-r from-amber-500 to-pink-500 relative overflow-hidden ">
       {/* Animated Background Elements - Hidden on small screens for better performance */}
       <div className="absolute inset-0 hidden md:block">
         {[...Array(12)].map((_, i) => (

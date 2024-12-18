@@ -51,13 +51,15 @@ import YearlyHoroscope from "./pages/DailyHoroscope/MonthlyHoroscope";
 import Horoscope from "./pages/DailyHoroscope/Horoscope";
 import ScrollToTop from "./pages/scroolToTop";
 import NotFound from "./pages/NotFound";
+import AstrologerChat from "./pages/AstrologerChat";
+import WalletRecharge from "./pages/WalletRecharge";
+import AstrologerCallModal from "./pages/AstrologerCallModal";
 function App() {
-  
   return (
     <Provider store={store}>
       <ToastContainer />
       <Router>
-      <ScrollToTop />
+        <ScrollToTop />
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
@@ -112,10 +114,11 @@ function App() {
             <Route path="/yearly-horoscope" element={<MonthlyHoroscope />} />
             <Route path="/monthly-horoscope" element={<YearlyHoroscope />} />
             <Route path="/horoscope" element={<Horoscope />} />
+            <Route path="/AstrologerChat" element={<AstrologerChat />} />
+            <Route path="/WalletRecharge" element={<WalletRecharge />} />
+            <Route path="/AstrologerCallModal" element={<AstrologerCallModal />} />
 
             <Route path="*" element={<NotFound />} />
-            
-            
           </Route>
         </Routes>
       </Router>

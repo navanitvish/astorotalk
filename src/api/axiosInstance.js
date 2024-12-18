@@ -1,7 +1,7 @@
 // src/api/axiosInstance.js
 import axios from 'axios';
 // eslint-disable-next-line no-undef
-const admin = localStorage.getItem("admin");
+const admin = localStorage.getItem("token");
 console.log( "this token",admin);
 
 const axiosInstance = axios.create({
